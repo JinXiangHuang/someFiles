@@ -1,0 +1,21 @@
+brew install automake
+brew install libtool
+brew install protobuf
+就是利用brew下载安装了。protobuf就是我们想要的，另外两个是依赖库
+git clone https://github.com/alexeyxo/protobuf-objc.git
+******
+./build.sh
+********
+cd ~/protobuf-objc
+./autogen.sh
+./configure
+
+
+
+创建完毕后，我们来编译这个person.proto文件。cd到ProtoBuf的文件夹后，命令如下：
+protoc --plugin=/usr/local/bin/protoc-gen-objc person.proto --objc_out=./
+
+protoc会自动在/usr/local/bin/目录下寻找名为”protoc-gen-objc”的插件，并使用该插件编译.proto文件，最终生成两个文件：
+
+Person.pb.h
+Person.pb.m

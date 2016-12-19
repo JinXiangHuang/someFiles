@@ -1,0 +1,288 @@
+Mac终端的基本指令(dir 文件夹）
+ls   显示目录下所有文件 (ls -G 查看文件或者文件夹)
+cd  (dir 文件夹）  进入目标文件夹
+cd  ..     返回上一级目录
+pwd    查看当前所在绝对路径路径
+mkdir (dir 文件夹)  创建文件夹
+touch 文件名   新建文件
+mv  文件名   移动文件
+rm  文件名   删除文件
+rm -rf  文件夹     删除文件夹
+
+IOS开发之----Mac终端 常用命令
+OSX 的文件系统 
+OSX 采用的Unix文件系统，所有文件都挂在跟目录 / 下面，所以不在要有Windows 下的盘符概念。 
+你在桌面上看到的硬盘都挂在 /Volumes 下。 
+比如接上个叫做 USBHD的移动硬盘，桌面上会显示出一个硬盘图标，它实际在哪里呢？ 
+在终端里执行 ls /Volumes/USBHD, 看看显示出的是不是这个移动硬盘的内容。 
+根目录位置是 / 核心 Mach_kernel 就在这里， 
+驱动所在位置 /Systme/Library/Extensions 
+用户文件夹位置 /User/用户名 
+桌面的位置 /User/用户名/Desktop 
+文件通配符为星号 * 
+注意：在 Unix系统中是区别大小写字符的，A.txt 不等于 a.txt。 
+根目录标志 / 不是可有可无，cd /System 表示转到跟目录下的System中，而cd System 表示转到当前目录下的 System中 
+—————————————————————————————————————————————— 
+如何进入命令行操作模式 
+再图形界面下，用finder 打开 应用程序 》实用程序》终端 
+如果连图形界面都进不去了（比如安错了显示驱动），开机时按 F8，用－s参数启动，然后输入命令 mount -uw / 
+
+获得权限 
+为了防止误操作破坏系统，再用户状态下时没有权限操作系统重要文件的，所以先要取得root权限 
+sudo －s 
+然后输入密码，输入密码时没有任何回显，连星号都没有，只管输完回车就行了。 
+—————————————————————————————————————————————— 
+基本命令1、列出文件ls 参数 目录名        例: 看看驱动目录下有什么:ls /System/Library/Extensions参数 -w 显示中文，-l 详细信息， -a 包括隐藏文件2、转换目录     
+cd    例：想到驱动目录下溜达一圈   cd /System/Library/Extensions
+3、建立新目录mkdir 目录名     例：在驱动目录下建一个备份目录 backup     mkdir /System/Library/Extensions/backup在桌面上建一个备份目录 backup    mkdir /User/用户名/Desktop/backup
+4、拷贝文件cp 参数 源文件 目标文件    例：想把桌面的Natit.kext 拷贝到驱动目录中  cp -R /User/用户名/Desktop/Natit.kext /System/Library/Extensions参数R表示对目录进行递归操作，kext在图形界面下看起来是个文件，实际上是个文件夹。把驱动目录下的所有文件备份到桌面backupcp -R /System/Library/Extensions/* /User/用户名/Desktop/backup
+5、删除文件rm 参数 文件   例：想删除驱动的缓存  rm -rf /System/Library/Extensions.kextcache     rm -rf /System/Library/Extensions.mkext参数－rf 表示递归和强制，千万要小心使用，如果执行了 rm -rf / 你的系统就全没了
+6、移动文件mv 文件   例：想把AppleHDA.Kext 移到桌面    mv /System/Library/Extensions/AppleHDA.kext /User/用户名/Desktop想把AppleHDA.Kext 移到备份目录中   mv /System/Library/Extensions/AppleHDA.kext /System/Library/Extensions/backup
+7、文本编辑nano 文件名   例：编辑natit Info.plist     nano /System/Library/Extensions/Natit.kext/Info.plist
+ 
+目录操作
+命令名                       功能描述                                             使用举例
+mkdir                        创建一个目录                                       mkdir dirname
+rmdir                         删除一个目录                                       rmdir dirname
+mvdir                        移动或重命名一个目录                         mvdir dir1 dir2
+cd                             改变当前目录                                       cd dirname
+pwd                          显示当前目录的路径名                          pwd
+ls                              显示当前目录的内容                             ls -la
+ 
+文件操作
+命令名                                 功能描述                                  使用举例
+cat                                      显示或连接文件                       cat filename
+ 
+ 
+od                                       显示非文本文件的内容            od -c filename
+cp                                      复制文件或目录                        cp file1 file2
+rm                                     删除文件或目录                         rm filename
+mv                                    改变文件名或所在目录               mv file1 file2
+ 
+find                                  使用匹配表达式查找文件             find . -name "*.c" -print
+file                                  显示文件类型                                file filename
+选择操作
+命令名                             功能描述                                       使用举例
+head                              显示文件的最初几行                       head -20 filename
+tail                                 显示文件的最后几行                       tail -15 filename
+cut                                显示文件每行中的某些域                 cut -f1,7 -d: /etc/passwd
+colrm                            从标准输入中删除若干列                  colrm 8 20 file2
+ 
+diff                                比较并显示两个文件的差异                diff file1 file2
+ 
+ 
+sort                             排序或归并文件                                      sort -d -f -u file1
+uniq                           去掉文件中的重复行                                  uniq file1 file2
+comm                        显示两有序文件的公共和非公共行              comm file1 file2
+wc                            统计文件的字符数、词数和行数                    wc filename
+nl                             给文件加上行号                                         nl file1 >file2
+ 
+ 
+ 
+ 
+进程操作
+命令名                     功能描述                                                 使用举例
+ps                           显示进程当前状态                                     ps u
+kill                         终止进程                                                     kill -9 30142
+ 
+ 
+时间操作
+命令名                           功能描述                                            使用举例
+date                    显示系统的当前日期和时间                           date
+cal                                   显示日历                                       cal 8 1996
+time                         统计程序的执行时间                            time a.out
+网络与通信操作
+命令名                                功能描述                                       使用举例
+telnet                                  远程登录                                 telnet hpc.sp.net.edu.cn
+rlogin                                 远程登录                                 rlogin hostname -l username
+rsh                       在远程主机执行指定命令                             rsh f01n03 date
+ftp                   在本地主机与远程主机之间传输文件                ftpftp.sp.net.edu.cn
+rcp                 在本地主机与远程主机 之间复制文件               rcp file1 host1:file2
+ping                   给一个网络主机发送 回应请求                   ping hpc.sp.net.edu.cn
+mail                          阅读和发送电子邮件                                          mail
+write                      给另一用户发送报文                                  write username pts/1
+mesg                    允许或拒绝接收报文                                                 mesg n
+Korn Shell 命令              
+ 命令名                                 功能描述                                        使用举例
+history               列出最近执行过的 几条命令及编号                       history
+r                         重复执行最近执行过的 某条命令                            r -2
+alias                            给某个命令定义别名                                  alias del=rm -i
+unalias                     取消对某个别名的定义                                  unalias del
+其它命令
+命令名                                  功能描述                                         使用举例
+uname                     显示操作系统的有关信息                              uname -a
+clear                       清除屏幕或窗口内容                                        clear
+env                        显示当前所有设置过的环境变量                         env
+who                       列出当前登录的所有用户                                    who
+whoami                  显示当前正进行操作的用户名                              whoami
+tty                         显示终端或伪终端的名称                                         tty
+stty                         显示或重置控制键定义                                        stty -a
+du                                  查询磁盘使用情况                         du -k subdirdf /tmp                          显示文件系统的总空间和可用空间
+w                                  显示当前系统活动的总信息
+ 
+Mac OS X 终端命令开启功能
+1.Lion下显示资源库
+方法一：
+显示
+在“终端”中输入下面的命令：
+chflags nohidden ~/Library/
+隐藏
+在“终端”中输入下面的命令：
+chflags hidden ~/Library/
+方法二：
+打开Finder，菜单中选择前往按住option键就会显示资源库项(每次打开都需要重复操作一次)。
+
+2.Finder显示隐藏文件
+显示隐藏文件
+在“终端”中输入下面的命令：
+defaults write com.apple.finder AppleShowAllFiles -bool true
+killall Finder
+恢复隐藏文件
+在“终端”中输入下面的命令：
+defaults write com.apple.finder AppleShowAllFiles -bool false
+killall Finder
+3.Xcode卸载
+在“终端”中输入下面的命令：
+sudo /Library/uninstall-devtools –mode=all
+为实际安装的目录，默认情况下Xcode安装在/Developer目录下，即可执行 sudo /Developer/Library/uninstall-devtools –mode=all
+4.在Finder标题栏显示完整路径
+在“终端”中输入下面的命令：
+defaults write com.apple.finder _FXShowPosixPathInTitle -bool YES
+killall Finder
+5.去掉窗口截屏的阴影
+对窗口进行截屏的时候(Command-Shift-4, 空格)，得到的图片周围会自动被加上一圈阴影。
+如果你不喜欢这个阴影的效果，可以把它关掉。
+在“终端”中输入下面的命令：
+defaults write com.apple.screencapture disable-shadow -bool true
+killall SystemUIServer
+6.强制Safari在新标签中打开网页
+Safari是默认支持标签浏览的。但是，我们在页面上点击链接或者在其他应用程序中点击链接的时候，
+Safari往往是打开了一个新的窗口，导致页面上的Safari窗口过多，不好管理。通过下面这个小窍门，
+我们可以让Safari默认是在一个新标签中打开网页。
+在“终端”中输入下面的命令：
+defaults write com.apple.Safari TargetedClicksCreateTabs -bool true
+7.改变截屏图片的保存位置
+Mac OS提供了非常方便的截屏快捷键，可以让我们非常快速的对整个屏幕、部分屏幕或者应用程序窗口进行截屏。不过，这个截屏功能有一个不足之处，就是只能将截 屏图片保存到桌面。如果我们截取的图片特别多，就会让桌面显得特别凌乱。那有没有办法来修改截屏图片的默认保存位置呢？有。方法非常简单，只要在“终端” 中输入下面的命令就可以了。
+defaults write com.apple.screencapture location 存放位置
+killall SystemUIServer
+在输入命令的时候，将“存放位置”替换成真正的文件夹就可以了。例如，你希望存放到自己用户目录的Screenshots文件夹下，就输入 defaults write com.apple.screencapture location ~/Screenshots
+
+Mac锁屏设置快捷键
+如果用户要离开电脑一段时间，可以选择直接把笔记本直接合上。但是这样原先在跑 的进程就会挂起或者结束，如果正在下载，那么下载就被暂停（有时还不能恢复），如果正在提供网络服务，那么因为网络断了，别人也连不上你的笔记本。锁屏可 以解决这个问题，在Windows下用Win+L快捷键就锁屏了，但Mac OS X下一直没有默认的快捷键。
+对于像我一样的新手，不要说设置锁屏快捷键，即便要使用其他锁屏的方法我也要到网上才能找到。其中一种方法是，首先在Finder找到“钥匙串访 问”这个实用工具（具体位置是/Applications/Utilities/Keychain Access.app），然后在“偏好设置”里选择“在菜单栏中显示钥匙串状态”。这时我们发现系统菜单多了一个像锁一样的小图标，只要点击它，就能找到 锁屏。
+上述的方法实现了锁屏，但还没能达到快捷键控制锁屏的目标。虽然如此，但它的效果给我们一个锁屏思路。首先，我们要求屏幕保护程序在恢复时必须输入密码，然后锁屏问题就变成启动屏幕保护程序的问题了。Lock the screen via a keyboard shortcut这篇文章叙述了具体的实施方法。
+第一步，找到“系统偏好设置”下的“安全性与隐私”，在“通用”页里勾上“进入睡眠或开始屏幕保护程序后立即要求输入密码”。
+第二步，要用快捷键启动屏幕保护程序，相对复杂一点。在“应用程序”里找到“Automator”。新建一个服务，在“操作”下的“实用工具”里找 到“启动屏幕保护程序”，并把此操作拖动到右边，并且选择“没有输入”和位于“任何应用程序”，如下图所示。然后把服务保存为自己定义的名字。
+
+Unix命令大全   http://wiki.ubuntu.org.cn/Unix命令大全
+
+1    mac 装brew 
+ruby -e “$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)”
+2  curl  用途说明
+curl命令是一个功能强大的网络工具，它能够通过http、ftp等方式下载文件，也能够上传文件。其实curl远不止前面所说的那些功能，大家可以通过man curl阅读手册页获取更多的信息。类似的工具还有wget。
+curl命令使用了libcurl库来实现，libcurl库常用在C程序中用来处理HTTP请求，curlpp是libcurl的一个C++封装，这几个东西可以用在抓取网页、网络监控等方面的开发，而curl命令可以帮助来解决开发过程中遇到的问题。
+
+
+
+ls -a    #不忽略前面带.的文件、目录
+ls -l     #长列表模式，列出的信息多
+ll 列出来的结果详细，有时间，是否可读写等信息 ，象windows里的 详细信息
+ls 只列出文件名或目录名 就象windows里的  列表
+
+ll －t 是降序，  ll －t ｜ tac 是升序
+ll不是命令，是ls -l的别名
+
+ls 命令可以说是linux下最常用的命令之一。
+-a 列出目录下的所有文件，包括以 . 开头的隐含文件。
+-b 把文件名中不可输出的字符用反斜杠加字符编号(就象在C语言里一样)的形式列出。
+-c 输出文件的 i 节点的修改时间，并以此排序。
+-d 将目录象文件一样显示，而不是显示其下的文件。
+-e 输出时间的全部信息，而不是输出简略信息。
+-f -U 对输出的文件不排序。
+-g 无用。
+-i 输出文件的 i 节点的索引信息。
+-k 以 k 字节的形式表示文件的大小。
+-l 列出文件的详细信息。
+-m 横向输出文件名，并以“，”作分格符。
+-n 用数字的 UID,GID 代替名称。
+-o 显示文件的除组信息外的详细信息。
+-p -F 在每个文件名后附上一个字符以说明该文件的类型，“*”表示可执行的普通
+文件；“/”表示目录；“@”表示符号链接；“|”表示FIFOs；“=”表示套
+接字(sockets)。
+-q 用?代替不可输出的字符。
+-r 对目录反向排序。
+-s 在每个文件名后输出该文件的大小。
+-t 以时间排序。
+-u 以文件上次被访问的时间排序。
+-x 按列输出，横向排序。
+-A 显示除 “.”和“..”外的所有文件。
+-B 不输出以 “~”结尾的备份文件。
+-C 按列输出，纵向排序。
+-G 输出文件的组的信息。
+-L 列出链接文件名而不是链接到的文件。
+-N 不限制文件长度。
+-Q 把输出的文件名用双引号括起来。
+-R 列出所有子目录下的文件。
+-S 以文件大小排序。
+-X 以文件的扩展名(最后一个 . 后的字符)排序。
+-1 一行只输出一个文件。
+--color=no 不显示彩色文件名
+--help 在标准输出上显示帮助信息。
+--version 在标准输出上输出版本信息并退出。
+只列出子目录
+1. ls -F | grep /$ 或者 alias sub = "ls -F | grep /$"(linux)
+2. ls -l | grep "^d" 或者 ls -lL | grep "^d" (Solaris)
+计算当前目录下的文件数和目录数
+下面命令可以分别计算当前目录下的文件和目录个数：
+# ls -l * |grep "^-"|wc -l ---- to count files
+# ls -l * |grep "^d"|wc -l ----- to count dir
+显示彩色目录列表
+打开/etc/bashrc, 加入如下一行:
+alias ls="ls --color"
+下次启动bash时就可以像在Slackware里那样显示彩色的目录列表了, 其中颜色的含义如下:
+1. 蓝色-->目录
+2. 绿色-->可执行文件
+3. 红色-->压缩文件
+4. 浅蓝色-->链接文件
+5. 灰色-->其他文件 
+ls -tl --time-style=full-iso sshd
+ls -ctl --time-style=long-iso
+
+
+
+Vim的使用;
+vi: 三种模式: 查看, 编辑, 命令
+(1)查看文件     vi    文件名
+(2)编辑             点击i(insert的缩写)进入编辑模式
+(3)命令模式:
+gg             		查看文件头
+shift + g    		查看文件尾
+yy              		复制一行
+dd             		删除一行
+p               		粘贴
+esc + :w			保存文件
+esc + :wq		保存退出     
+esc + :q!		不保存退出   
+等等
+vim 与 vi 的区别
+它们都是多模式编辑器，不同的是vim 是vi的升级版本，它不仅兼容vi的所有指令，而且还有一些新的特性在里面。
+vim的这些优势主要体现在以下几个方面：
+1、多级撤消
+我们知道在vi里，按 u只能撤消上次命令，而在vim里可以无限制的撤消。
+2、易用性
+vi只能运行于unix中，而vim不仅可以运行于unix,windows ,mac等多操作平台。
+3、语法加亮
+vim可以用不同的颜色来加亮你的代码。
+4、可视化操作
+就是说vim不仅可以在终端运行，也可以运行于x window、 mac os、 windows。
+5、对vi的完全兼容
+某些情况下，你可以把vim当成vi来使用。
+
+
+
+
+
+
+
+
+http://wiki.ubuntu.org.cn
