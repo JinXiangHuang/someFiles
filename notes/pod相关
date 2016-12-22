@@ -1,0 +1,128 @@
+ #安装Cocoapods
+ #升级Ruby环境 终端输入：sudo gem update --system
+ #安装CocoaPods时我们要访问cocoapods.org  gem sources --remove https://rubygems.org/    gem sources -a https://ruby.taobao.org/
+ #可以使用下面的命令(红色部分)查看是否更换镜像成功（如下图所示）：gem sources -l
+ #安装Cocoapods，在终端输入命令 sudo gem install cocoapods
+ pod setup  ：其实在你安装CocoaPods执行pod install时，系统会默认操作pod setup，然而由于中国强大的墙可能会pod setup不成功。这时就需要手动执行pod setup指令
+ #使用search命令搜索类库名：pod search AFNetworking
+ 
+ #需要在工程中创建一个Podfile文件 vim Podfile||pod init 运行结束后，该目录下，会生成了一个Podfile文件
+ # 目标平台及其版本use_frameworks!(swift项目需要这句话)，是Objective-C项目的话，请在前面加个`#`注释掉target 'xxxx' do
+ (
+ A、用cocoapods 导入swift 框架 到 swift项目和OC项目都必须要 use_frameworks!
+ B、使用 dynamic frameworks，必须要在Podfile文件中添加 use_frameworks!
+ (1)如果在Podfile文件里不使用 use_frameworks! 则是会生成相应的 .a文件（静态链接库），通过 static libraries 这个方式来管理pod的代码。
+ 
+ (2)Linked:libPods-xxx.a包含了其它用pod导入的第三方框架的.a文件。
+ 
+ (3)如果使用了use_frameworks! 则cocoapods 会生成相应的 .frameworks文件（动态链接库：实际内容为 Header + 动态链接库 + 资源文件），使用 dynamic frameworks 来取代 static libraries 方式。
+ 
+ (4)Linked:Pods_xxx.framework包含了其它用pod导入的第三方框架的.framework文件。
+ use_frameworks! -> dynamic frameworks 方式 -> .framework
+ #use_frameworks! -> static libraries 方式 -> .a
+ 
+ use_frameworks! {
+ use_frameworks!遇到了library not found for -lXXXXX 的解决方法
+ http://www.jianshu.com/p/d0dc92d9a31b
+ 或者
+ 1. #import <> -> #import ""
+ 2.-l"xxx" -> -framework/"xxx"
+ 
+ 
+ 
+ }
+ pod 配置文件丢失恢复
+ 点击“Add User-Defined Setting，人工添加 ${PODS_ROOT} = ${SRCROOT}/Pods。
+)
+ 
+ 
+ 
+ #按章第三方库pod install
+ #如果在安装之后，修改了Podfile文件，可以执行以下的其中一个命令进行库的更新(两个命令的区别和上面说的一样):
+ #pod update --no-repo-update or pod update
+ 
+ #更改了Podfile文件，pod update命令
+ 
+ 在项目中移除CocoaPods
+ 如果你觉得CocoaPods让你的项目出现了问题，不好用甚至是恶心，想将其从项目中彻底移除，也有方法：
+ 
+ 1.删除工程文件夹下的Podfile、Podfile.lock和Pods文件夹。
+ 
+ 2.删除xcworkspace文件。
+ 
+ 3.打开xcodeproj文件，删除项目中的Pods文件夹及Pods.xcconfig引用和libpods.a：
+ 
+ 4.打开Build Phases选项，删除Check Pods Manifest.lock和Copy Pods Resources，以及Embeded Pods Frameworks：
+ 
+ 5.完成，编译运行，无错通过。
+ 
+ 总结
+ 从项目中移除某个类库直接修改"Podfile"文件即可，但是移除整个CocoaPods就有点麻烦了，或许有其他方法。
+ 
+ 另外，如果在编辑工程时不小心删除了某个文件，如Podfile.lock，那么我们就要用上面的方法先移除整个CocoaPods，然后重新建立Podfile和使用pod install命令重装CocoaPods。
+
+pod 配置文件丢失恢复
+ 一 .关于cocopods的 Attempt to read non existent folder的报错解决办法
+   第1种.路径问题：项目路径存在无法识别的folder (backup - copy)错误
+   第2种. sudo -- sh -c "echo '117.18.237.29   ocsp.digicert.com' >> /etc/hosts"
+    即可，切记：此时应该将终端内的所有命令清除。回车之后，将工程内的pod，pod file，podfilelock文件全部删除，再重新集成即可。
+   第3种 .重装
+ 
+ 2.修改target名字后 pod
+ .xcworkspace 名字无法修改
+ 在项目中移除CocoaPods  重新 pod init
+ 
+
+ 错误1、
+ 当写在Podfile文件中的第三方框架，不能使用，找不到时
+ 
+ 查看Pods文件夹，是否下载了所需要的第三方框架，没有的话就 pod update
+ 
+ 
+ 错误2、
+ Could not automatically select an Xcode project. Specify one in your Podfile like so:xcodeproj 'path/to/Project.xcodeproj'
+ 在Podfile文件里指定下工程目录就行了
+ 
+ xcodeproj 'Demo/Demo.xcodeproj'
+ 
+ 但是如果cocoapods版本为（1.0.0）的话，可能会有以下警告
+ 
+ [!] xcodeproj was renamed to `project`. Please use that from now on.
+ 
+ 这时只需要把xcodeproj改为 project就行了
+ 
+ project 'Demo/Demo.project'
+
+ 
+ 错误3、
+ The dependency `AFNetworking (~> 3.0)` is not used in any concrete target.
+ 
+ 在Podfile中添加
+ 
+ target‘项目名'do  (如  target 'Demo' do )
+ 
+ 错误4、
+ [!] Invalid `Podfile` file: syntax error, unexpected end-of-input, expecting keyword_end.
+ 
+ 在Podfile的末尾添加 end
+ 
+ 
+ 错误5、
+ Unable to find the Xcode project `/Volumes/BIAO/iOS/code/MBWB.xcodeproj` for the target `Pods`.
+ 
+ 在Podfile中 将  project 'Demo/Demo.project’  改成  project 'Demo.project'
+ 
+ 
+ 错误6、
+ build diff: /../Podfile.lock: No such file or directory
+ 
+ 在工程设置中的Build Phases下删除Check Pods Manifest.lock及Copy Pods Resources
+ 
+
+ 还有一个更新慢的问题：无论是执行pod install还是pod update都卡在了Analyzing dependencies不动
+ 
+ 原因在于当执行以上两个命令的时候会升级CocoaPods的spec仓库，加一个参数可以省略这一步，然后速度就会提升不少。加参数的命令如下：
+ 
+ pod install --verbose --no-repo-update
+ 
+ pod update --verbose --no-repo-update

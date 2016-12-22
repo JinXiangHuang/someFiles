@@ -1,0 +1,13 @@
+1.Xcode 8 证书管理 Signing for "xxxx" requires a development team.,解决办法是添加账号就可以自动解决。“这里不需要开发者账号，自己的 apple id，就可以”
+
+2.Signing ?? 证书，配置文件 app ID
+3.上架
+4. 开发账号的区别：
+
+  1.99美元的个人账号:只要去苹果官网付款就行了，但是你的信用卡要的支付外汇的才行的，这里推荐一个淘宝链接购买开发者账号:(http://tmqd.me/h.ZZTHi6?cv=AAFjfvYB&sm=4ce1c5).
+  2.99美元的企业账号:这个注册有点麻烦，需要邓白氏编码，公司的营业执照，外汇的信用卡周期要一个月才可以搞定。(正常的情况下) 
+(这两个99美元的区别:企业账号就是有利于管理团队开发).
+  3.299美元的账号:299美元的是企业账号的开发不可以上线，只是在自己企业内部的使用.
+
+
+4 Could not launch “iOS”：Verify the Developer App certificate for your account is trusted on your device. Open Settings on iPhone66 and navigate to General -> Device Management, then select your Developer App certificate to trust it.在您的设备上验证您的帐户的开发应用程序证书。打开设置在iphone66导航一般->设备管理，然后选择你的开发应用证书信任它。
