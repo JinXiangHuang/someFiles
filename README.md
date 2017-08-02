@@ -5,6 +5,7 @@
 3.超前1个提交
 =======
 3.Creating a new branch is quick AND simple.
+<<<<<<< HEAD
 >>>>>>> feature1
 
 4.分支超前提交，主支再提交 会出现冲突.
@@ -12,3 +13,7 @@
 5.分支超前提交
 
 6..aff
+=======
+
+5.acsacsaca
+>>>>>>> feature1
