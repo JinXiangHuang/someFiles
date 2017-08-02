@@ -6,3 +6,5 @@
 =======
 3.Creating a new branch is quick AND simple.
 >>>>>>> feature1
+
+4.分支超前提交，主支再提交 会出现冲突.
